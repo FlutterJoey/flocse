@@ -1,3 +1,7 @@
+# 0.0.2
+* Allowed instances to be provided to builders so the component is not related to the lifecycle of the widget.
+
+
 ## 0.0.1
 
 Not a useable release, an early stage personal research project. 
