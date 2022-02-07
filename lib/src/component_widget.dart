@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 /// viewmodel and build based on the events it listens to.
 class ComponentBuilder<T extends ComponentViewModel> extends StatefulWidget {
   const ComponentBuilder({
-    required this.create,
     required this.builder,
+    this.create,
+    this.instance,
     Key? key,
-  }) : super(key: key);
+  })  : assert(create != null || instance != null),
+        super(key: key);
 
-  final T Function(BuildContext) create;
+  final T Function(BuildContext)? create;
+  final T? instance;
   final Widget Function(BuildContext, T) builder;
 
   @override
@@ -22,8 +25,11 @@ class _ComponentBuilderState<T extends ComponentViewModel>
   T? component;
 
   T getComponent(BuildContext context) {
+    if (widget.instance != null) {
+      return widget.instance!;
+    }
     if (component == null) {
-      component = widget.create(context);
+      component = widget.create?.call(context);
       component!.context = context;
     }
     return component!;
