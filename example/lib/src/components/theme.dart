@@ -8,7 +8,7 @@ class ThemeComponent extends ComponentViewModel {
   ThemeData theme;
 
   @override
-  void initListeners() {
+  Future<void> initListeners() async {
     registerEvent(_changeTheme);
   }
 

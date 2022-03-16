@@ -35,7 +35,7 @@ class CounterViewModel extends ComponentViewModel {
   int get value => _value;
 
   @override
-  void initListeners() {
+  Future<void> initListeners() async {
     registerEvent(_onCounterUpdate);
   }
 

@@ -45,9 +45,9 @@ class ComponentRegistry {
     component.onUnload();
   }
 
-  void _initializeComponent(Component component) {
+  void _initializeComponent(Component component) async {
     component.componentRegistry = this;
-    component.initListeners();
+    await component.initListeners();
     component.onLoad();
   }
 

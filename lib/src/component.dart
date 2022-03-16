@@ -39,13 +39,13 @@ abstract class Component {
   }
 
   /// called when registering/unregistering events;
-  void initListeners();
+  FutureOr<void> initListeners();
 
   /// called when the component is loaded
-  void onLoad();
+  void onLoad() {}
 
   /// called when the component is unloaded;
-  void onUnload();
+  void onUnload() {}
 
   FutureOr<void> onError(Object error, StackTrace trace, Event event) async {
     throw error;
