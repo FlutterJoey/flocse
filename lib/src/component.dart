@@ -22,6 +22,7 @@ import 'eventlistener.dart';
 ///
 abstract class Component {
   late final ComponentRegistry componentRegistry;
+  late final int priority;
 
   /// sends an event onto the eventbus
   FutureOr<void> send<T extends Event>(T event) async {
@@ -30,8 +31,9 @@ abstract class Component {
 
   /// used to register a callback to an event
   @mustCallSuper
-  void registerEvent<T extends Event>(EventListener<T> onEvent) {
-    componentRegistry.registerListener(onEvent, this);
+  void registerEvent<T extends Event>(EventListener<T> onEvent,
+      [int? priority]) {
+    componentRegistry.registerListener(onEvent, this, priority);
   }
 
   void inject<T>(DependencyInjector<T> injector) {

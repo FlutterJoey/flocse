@@ -24,11 +24,8 @@ class ComponentRegistry {
   }
 
   void registerComponent(Component component, [int? priority]) {
-    if (priority == null) {
-      components.add(component);
-    } else {
-      components.insert(priority, component);
-    }
+    components.add(component);
+    component.priority = priority ?? components.indexOf(component);
     _initializeComponent(component);
   }
 
@@ -52,11 +49,12 @@ class ComponentRegistry {
   }
 
   void registerListener<T extends Event>(
-    EventListener<T> listener,
-    Component component,
-  ) {
+      EventListener<T> listener, Component component,
+      [int? priority]) {
     _retrieveListeners(listener.getType())
-        .add(_ListenerReference<T>(listener, component));
+      ..add(_ListenerReference<T>(
+          listener, component, priority ?? component.priority))
+      ..sort();
   }
 
   List<dynamic> _retrieveListeners(Type type) {
@@ -69,9 +67,15 @@ class ComponentRegistry {
   }
 }
 
-class _ListenerReference<T extends Event> {
+class _ListenerReference<T extends Event> implements Comparable {
   final EventListener<T> listener;
   final Component component;
   final List<T> history = [];
-  _ListenerReference(this.listener, this.component);
+  final int priority;
+  _ListenerReference(this.listener, this.component, this.priority);
+
+  @override
+  int compareTo(covariant _ListenerReference other) {
+    return priority - other.priority;
+  }
 }

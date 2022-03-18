@@ -9,11 +9,15 @@ abstract class ComponentViewModel extends Component with ChangeNotifier {
   bool get loaded => _loaded;
 
   @override
-  void registerEvent<T extends Event>(EventListener<T> onEvent) {
-    super.registerEvent<T>((T event) async {
-      await onEvent(event);
-      notifyListeners();
-    });
+  void registerEvent<T extends Event>(EventListener<T> onEvent,
+      [int? priority]) {
+    super.registerEvent<T>(
+      (T event) async {
+        await onEvent(event);
+        notifyListeners();
+      },
+      priority,
+    );
   }
 
   @override

@@ -1,3 +1,1 @@
-class DependencyRegistry {
-  
-}
+class DependencyRegistry {}

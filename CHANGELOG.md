@@ -1,3 +1,11 @@
+# 1.0.0
+First functionaly tested, not production ready release.
+
+* Add defualt implementation of onLoad and onUnload to component to decrease empty overrides in componets.
+* Add loaded getter on ViewModel so a check can be done in the build of a ComponentBuilder
+* Formatted code to comply with pub.dev scores
+* Add priority field to allow ordering of eventhandlers
+
 # 0.0.2
 * Allowed instances to be provided to builders so the component is not related to the lifecycle of the widget.
 
