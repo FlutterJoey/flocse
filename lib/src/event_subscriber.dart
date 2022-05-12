@@ -20,7 +20,7 @@ class _EventSubscriberState<T extends Event> extends State<EventSubscriber<T>>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.getRegistry().registerComponent(this);
     });
   }

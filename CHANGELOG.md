@@ -1,3 +1,6 @@
+# 2.0.0
+Upgrade to Flutter 3.0.0
+
 # 1.0.0
 First functionaly tested, not production ready release.
 

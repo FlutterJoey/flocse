@@ -38,7 +38,7 @@ class _ComponentBuilderState<T extends ComponentViewModel>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.getRegistry().registerComponent(getComponent(context));
     });
   }
