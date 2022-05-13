@@ -28,7 +28,9 @@ class _ComponentRegistryProviderState extends State<ComponentRegistryProvider> {
   @override
   Widget build(BuildContext context) {
     return InheritedRegistry(
-        child: widget.child, componentRegistry: _componentRegistry);
+      componentRegistry: _componentRegistry,
+      child: widget.child,
+    );
   }
 }
 
