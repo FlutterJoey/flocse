@@ -1,3 +1,8 @@
+# 2.1.0
+Add mocking to test harness
+Add test harness to better test individual components
+add dart doc
+
 # 2.0.0
 Upgrade to Flutter 3.0.0
 

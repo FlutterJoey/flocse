@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:flocse/flocse.dart';
 import 'package:flutter/foundation.dart';
 
+class _MockComponent extends Component {
+  @override
+  FutureOr<void> initListeners() async {}
+}
+
 class ComponentHarness {
   ComponentHarness._(this.sut) {
     _harnessRegistry = _HarnessRegistry(eventHandler: events.add);
@@ -17,6 +22,10 @@ class ComponentHarness {
   late final _HarnessRegistry _harnessRegistry;
   final Component sut;
   final List<Event> events = [];
+
+  void mockEvent<T extends Event>(EventListener<T> event) {
+    _harnessRegistry.registerListener(event, _MockComponent());
+  }
 
   Future<void> sendTest<T extends Event>(T event) async {
     return await _harnessRegistry.sendEvent(event, true);
