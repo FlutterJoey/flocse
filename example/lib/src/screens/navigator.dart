@@ -14,9 +14,11 @@ class AppNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return EventSubscriber<NavigateEvent>(
       child: child,
-      onEvent: (event) {
-        var navigator = navigatorKey.currentState;
-        navigator?.pushNamedAndRemoveUntil(event.route, (route) => false);
+      onEventReceived: (event, state) {
+        if (state.mounted) {
+          var navigator = Navigator.of(state.context);
+          navigator.pushNamedAndRemoveUntil(event.route, (route) => false);
+        }
       },
     );
   }

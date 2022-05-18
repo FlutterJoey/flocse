@@ -1,14 +1,16 @@
 import 'package:flocse/src/component.dart';
 import 'package:flocse/src/component_registry.dart';
+import 'package:flocse/src/event_logger.dart';
 import 'package:flutter/material.dart';
 
 class ComponentRegistryProvider extends StatefulWidget {
   const ComponentRegistryProvider(
-      {required this.child, required this.components, Key? key})
+      {required this.child, required this.components, this.logger, Key? key})
       : super(key: key);
 
   final List<Component> components;
   final Widget child;
+  final EventLogger? logger;
 
   @override
   State<ComponentRegistryProvider> createState() =>
@@ -21,7 +23,7 @@ class _ComponentRegistryProviderState extends State<ComponentRegistryProvider> {
   @override
   void initState() {
     super.initState();
-    _componentRegistry = ComponentRegistry();
+    _componentRegistry = ComponentRegistry(logger: widget.logger);
     widget.components.forEach(_componentRegistry.registerComponent);
   }
 

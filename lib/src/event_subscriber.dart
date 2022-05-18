@@ -1,14 +1,23 @@
+import 'dart:async';
+
 import 'package:flocse/flocse.dart';
 import 'package:flutter/material.dart';
 
+/// Used for listening to events
+///
+/// Can be useful to listen to an event with a required context without
+/// having to set up [ComponentViewModel] boilerplate
 class EventSubscriber<T extends Event> extends StatefulWidget {
   const EventSubscriber({
-    required this.onEvent,
+    this.onEventReceived,
+    @Deprecated("on event does not contain state, use onEventReceived instead")
+        this.onEvent,
     required this.child,
     Key? key,
   }) : super(key: key);
 
-  final EventListener<T> onEvent;
+  final EventListener<T>? onEvent;
+  final FutureOr<void> Function(T, State<EventSubscriber<T>>)? onEventReceived;
   final Widget child;
 
   @override
@@ -32,7 +41,10 @@ class _EventSubscriberState<T extends Event> extends State<EventSubscriber<T>>
 
   @override
   void initListeners() {
-    registerEvent(widget.onEvent);
+    registerEvent<T>((T event) {
+      widget.onEventReceived?.call(event, this);
+      widget.onEvent?.call(event);
+    });
   }
 
   @override

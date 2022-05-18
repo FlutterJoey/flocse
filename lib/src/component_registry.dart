@@ -2,14 +2,23 @@ import 'dart:async';
 
 import 'package:flocse/src/component.dart';
 import 'package:flocse/src/event.dart';
+import 'package:flocse/src/event_logger.dart';
 import 'package:flocse/src/eventlistener.dart';
 
 class ComponentRegistry {
   final Map<Type, List<dynamic>> _listeners = {};
 
   final List<Component> components = [];
+  final EventLogger? _logger;
 
-  FutureOr<void> sendEvent<T extends Event>(T event) async {
+  ComponentRegistry({
+    EventLogger? logger,
+  }) : _logger = logger;
+
+  /// Sends an event to all listeners of the given type
+  FutureOr<void> sendEvent<T extends Event>(T event,
+      [Component? sender]) async {
+    _logger?.logEvent(EventLog(event, sender));
     for (var listener in _retrieveListeners(event.runtimeType)) {
       var reference = listener as _ListenerReference<T>;
       if (!event.isCancelled()) {
@@ -48,6 +57,15 @@ class ComponentRegistry {
     component.onLoad();
   }
 
+  /// Registers a listener which is fired when an avent of type T is sent.
+  ///
+  /// The order of execution is determined by the priority of listener if set,
+  /// else by the priority of the component.
+  ///
+  /// Priority does not ensure that the listener is called before or after other
+  /// listeners. It is only used to determine the order of execution. If all
+  /// listeners are asynchronous but use await in their internal logic, the
+  /// order of execution is always the same.
   void registerListener<T extends Event>(
       EventListener<T> listener, Component component,
       [int? priority]) {

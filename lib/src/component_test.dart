@@ -22,13 +22,14 @@ class ComponentHarness {
   late final _HarnessRegistry _harnessRegistry;
   final Component sut;
   final List<Event> events = [];
+  final _MockComponent _mockComponent = _MockComponent();
 
   void mockEvent<T extends Event>(EventListener<T> event) {
-    _harnessRegistry.registerListener(event, _MockComponent());
+    _harnessRegistry.registerListener(event, _mockComponent);
   }
 
   Future<void> sendTest<T extends Event>(T event) async {
-    return await _harnessRegistry.sendEvent(event, true);
+    return await _harnessRegistry.sendEvent(event, _mockComponent, true);
   }
 
   bool eventOfTypes(List<Type> types) {
@@ -78,10 +79,10 @@ class _HarnessRegistry extends ComponentRegistry {
 
   @override
   FutureOr<void> sendEvent<T extends Event>(T event,
-      [bool disableLog = false]) async {
+      [Component? sender, bool disableLog = false]) async {
     if (!disableLog) {
       eventHandler.call(event);
     }
-    return await super.sendEvent(event);
+    return await super.sendEvent(event, sender);
   }
 }

@@ -26,7 +26,7 @@ abstract class Component {
 
   /// sends an event onto the eventbus
   FutureOr<void> send<T extends Event>(T event) async {
-    await componentRegistry.sendEvent<T>(event);
+    await componentRegistry.sendEvent<T>(event, this);
   }
 
   /// used to register a callback to an event

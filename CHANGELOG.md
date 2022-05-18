@@ -1,12 +1,17 @@
-# 2.1.0
-Add mocking to test harness
-Add test harness to better test individual components
-add dart doc
+## 2.2.0
+* Add logging capability to component registry
+* Improved EventSubscriber widget to expose state
+* Expanded documentation
 
-# 2.0.0
-Upgrade to Flutter 3.0.0
+## 2.1.0
+* Add mocking to test harness
+* Add test harness to better test individual components
+* add dart doc
 
-# 1.0.0
+## 2.0.0
+* Upgrade to Flutter 3.0.0
+
+## 1.0.0
 First functionaly tested, not production ready release.
 
 * Add defualt implementation of onLoad and onUnload to component to decrease empty overrides in componets.
@@ -14,9 +19,9 @@ First functionaly tested, not production ready release.
 * Formatted code to comply with pub.dev scores
 * Add priority field to allow ordering of eventhandlers
 
-# 0.0.2
-* Allowed instances to be provided to builders so the component is not related to the lifecycle of the widget.
+## 0.0.2
 
+* Allowed instances to be provided to builders so the component is not related to the lifecycle of the widget.
 
 ## 0.0.1
 

@@ -7,6 +7,7 @@ export 'src/component_view_model.dart';
 export 'src/component_widget.dart';
 export 'src/event.dart';
 export 'src/eventlistener.dart';
+export 'src/event_logger.dart';
 export 'src/event_subscriber.dart';
 export 'src/registry_provider.dart';
 export 'src/component_test.dart';
