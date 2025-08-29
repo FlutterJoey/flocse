@@ -6,4 +6,5 @@ dev_dependencies:
 workspace:
   - packages/flocse/example
   - packages/flocse
+  - packages/flocse_core
 melos: 

@@ -1,12 +1,9 @@
-import 'package:flocse/src/component.dart';
-import 'package:flocse/src/component_registry.dart';
-import 'package:flocse/src/event_logger.dart';
+import 'package:flocse_core/flocse_core.dart';
 import 'package:flutter/material.dart';
 
 class ComponentRegistryProvider extends StatefulWidget {
   const ComponentRegistryProvider(
-      {required this.child, required this.components, this.logger, Key? key})
-      : super(key: key);
+      {required this.child, required this.components, this.logger, super.key});
 
   final List<Component> components;
   final Widget child;
@@ -44,11 +41,10 @@ class InheritedRegistry extends InheritedWidget {
   }
 
   const InheritedRegistry(
-      {Key? key,
-      required Widget child,
+      {super.key,
+      required super.child,
       required ComponentRegistry componentRegistry})
-      : _componentRegistry = componentRegistry,
-        super(key: key, child: child);
+      : _componentRegistry = componentRegistry;
 
   @override
   bool updateShouldNotify(covariant InheritedRegistry oldWidget) {

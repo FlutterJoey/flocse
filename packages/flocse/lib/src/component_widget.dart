@@ -8,9 +8,8 @@ class ComponentBuilder<T extends ComponentViewModel> extends StatefulWidget {
     required this.builder,
     this.create,
     this.instance,
-    Key? key,
-  })  : assert(create != null || instance != null),
-        super(key: key);
+    super.key,
+  }) : assert(create != null || instance != null);
 
   final T Function(BuildContext)? create;
   final T? instance;

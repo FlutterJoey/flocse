@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:flocse/flocse.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flocse_core/flocse_core.dart';
 
 class _MockComponent extends Component {
   @override
@@ -33,7 +32,7 @@ class ComponentHarness {
   }
 
   bool eventOfTypes(List<Type> types) {
-    return listEquals(events.map((e) => e.runtimeType).toList(), types);
+    return _listEquals(events.map((e) => e.runtimeType).toList(), types);
   }
 
   bool eventOfType<T extends Event>() {
@@ -49,7 +48,7 @@ class ComponentHarness {
   }
 
   bool exactEvents(List<Event> events) {
-    return listEquals(events, this.events);
+    return _listEquals(events, this.events);
   }
 
   bool atLeastEvents(List<Event> events) {
@@ -73,16 +72,36 @@ class ComponentHarness {
 class _HarnessRegistry extends ComponentRegistry {
   void Function(Event onEvent) eventHandler;
 
-  _HarnessRegistry({
-    required this.eventHandler,
-  });
+  _HarnessRegistry({required this.eventHandler});
 
   @override
-  Future<void> sendEvent<T extends Event>(T event,
-      [Component? sender, bool disableLog = false]) async {
+  Future<void> sendEvent<T extends Event>(
+    T event, [
+    Component? sender,
+    bool disableLog = false,
+  ]) async {
     if (!disableLog) {
       eventHandler.call(event);
     }
     return await super.sendEvent(event, sender);
   }
+}
+
+/// Extracted from flutter, no need to depend on flutter for this functionality
+bool _listEquals<T>(List<T>? a, List<T>? b) {
+  if (a == null) {
+    return b == null;
+  }
+  if (b == null || a.length != b.length) {
+    return false;
+  }
+  if (identical(a, b)) {
+    return true;
+  }
+  for (int index = 0; index < a.length; index += 1) {
+    if (a[index] != b[index]) {
+      return false;
+    }
+  }
+  return true;
 }

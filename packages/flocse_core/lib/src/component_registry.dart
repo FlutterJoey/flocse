@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flocse/src/component.dart';
-import 'package:flocse/src/event.dart';
-import 'package:flocse/src/event_logger.dart';
-import 'package:flocse/src/event_listener.dart';
+import 'package:flocse_core/src/component.dart';
+import 'package:flocse_core/src/event.dart';
+import 'package:flocse_core/src/event_logger.dart';
+import 'package:flocse_core/src/event_listener.dart';
 
 class ComponentRegistry {
   final Map<Type, List<dynamic>> _listeners = {};
@@ -11,13 +11,10 @@ class ComponentRegistry {
   final List<Component> components = [];
   final EventLogger? _logger;
 
-  ComponentRegistry({
-    EventLogger? logger,
-  }) : _logger = logger;
+  ComponentRegistry({EventLogger? logger}) : _logger = logger;
 
   /// Sends an event to all listeners of the given type
-  Future<void> sendEvent<T extends Event>(T event,
-      [Component? sender]) async {
+  Future<void> sendEvent<T extends Event>(T event, [Component? sender]) async {
     _logger?.logEvent(EventLog(event, sender));
     for (var listener in _retrieveListeners(event.runtimeType)) {
       var reference = listener as _ListenerReference<T>;
@@ -67,11 +64,18 @@ class ComponentRegistry {
   /// listeners are asynchronous but use await in their internal logic, the
   /// order of execution is always the same.
   void registerListener<T extends Event>(
-      EventListener<T> listener, Component component,
-      [int? priority]) {
+    EventListener<T> listener,
+    Component component, [
+    int? priority,
+  ]) {
     _retrieveListeners(listener.getType())
-      ..add(_ListenerReference<T>(
-          listener, component, priority ?? component.priority))
+      ..add(
+        _ListenerReference<T>(
+          listener,
+          component,
+          priority ?? component.priority,
+        ),
+      )
       ..sort();
   }
 

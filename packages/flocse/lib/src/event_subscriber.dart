@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flocse/flocse.dart';
+import 'package:flocse_core/flocse_core.dart';
 import 'package:flutter/material.dart';
 
 /// Used for listening to events
@@ -11,10 +12,10 @@ class EventSubscriber<T extends Event> extends StatefulWidget {
   const EventSubscriber({
     this.onEventReceived,
     @Deprecated("on event does not contain state, use onEventReceived instead")
-        this.onEvent,
+    this.onEvent,
     required this.child,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final EventListener<T>? onEvent;
   final FutureOr<void> Function(T, State<EventSubscriber<T>>)? onEventReceived;

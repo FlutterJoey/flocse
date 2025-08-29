@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flocse/flocse.dart';
-
 import 'event.dart';
 
 /// Used for listening to events

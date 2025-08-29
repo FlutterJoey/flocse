@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:meta/meta.dart';
 
 import 'component_registry.dart';
 import 'event.dart';
@@ -27,8 +28,10 @@ abstract mixin class Component {
 
   /// used to register a callback to an event
   @mustCallSuper
-  void registerEvent<T extends Event>(EventListener<T> onEvent,
-      [int? priority]) {
+  void registerEvent<T extends Event>(
+    EventListener<T> onEvent, [
+    int? priority,
+  ]) {
     componentRegistry.registerListener(onEvent, this, priority);
   }
 

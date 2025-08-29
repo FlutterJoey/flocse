@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flocse/flocse.dart';
+import 'package:flocse_core/flocse_core.dart';
 import 'package:flutter/material.dart';
 
 /// This class is the core connection between the component business logic

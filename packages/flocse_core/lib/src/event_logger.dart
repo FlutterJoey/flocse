@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flocse/flocse.dart';
+import 'package:flocse_core/flocse_core.dart';
 
 class EventLogger {
   EventLogger(FutureOr<void> Function(String) logger) : _logger = logger;
